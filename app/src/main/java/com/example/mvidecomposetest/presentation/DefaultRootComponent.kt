@@ -16,7 +16,7 @@ class DefaultRootComponent(
 
     private val navigation = StackNavigation<Config>()
 
-    val stack: Value<ChildStack<Config, ComponentContext>> = childStack(
+    val stack: Value<ChildStack<Config, Child>> = childStack(
         source = navigation,
         initialConfiguration = Config.ContactList,
         handleBackButton = true,
@@ -27,29 +27,45 @@ class DefaultRootComponent(
     private fun child(
         config: Config,
         componentContext: ComponentContext
-    ): ComponentContext {
+    ): Child {
         return when (config) {
-            Config.AddContact -> DefaultAddContactComponent(
-                componentContext,
-                onContactSaved = navigation::pop
-            )
+            Config.AddContact -> {
+                val component = DefaultAddContactComponent(
+                    componentContext,
+                    onContactSaved = navigation::pop
+                )
+                Child.AddContact(component)
+            }
 
-            Config.ContactList -> DefaultContactListComponent(
-                componentContext = componentContext,
-                onAddContactRequested = {
-                    navigation.push(Config.AddContact)
-                },
-                onEditingContactRequested = {
-                    navigation.push(Config.EditContact(it))
-                }
-            )
+            Config.ContactList -> {
+                val component = DefaultContactListComponent(
+                    componentContext = componentContext,
+                    onAddContactRequested = {
+                        navigation.push(Config.AddContact)
+                    },
+                    onEditingContactRequested = {
+                        navigation.push(Config.EditContact(it))
+                    }
+                )
+                Child.ContactList(component)
+            }
 
-            is Config.EditContact -> DefaultEditContactComponent(
-                componentContext = componentContext,
-                contact = config.contact,
-                onContactSaved = navigation::pop
-            )
+            is Config.EditContact -> {
+                val component = DefaultEditContactComponent(
+                    componentContext = componentContext,
+                    contact = config.contact,
+                    onContactSaved = navigation::pop
+                )
+                Child.EditContact(component)
+            }
         }
+    }
+
+    sealed interface Child {
+        class AddContact(val component: AddContactComponent) : Child
+        class ContactList(val component: ContactListComponent) : Child
+        class EditContact(val component: EditContactComponent) : Child
+
     }
 
     @Serializable
