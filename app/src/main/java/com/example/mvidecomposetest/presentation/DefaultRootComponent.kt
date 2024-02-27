@@ -53,15 +53,15 @@ class DefaultRootComponent(
     }
 
     @Serializable
-    sealed interface Config {
+    sealed class Config {
 
         @Serializable
-        data object ContactList : Config
+        data object ContactList : Config()
 
         @Serializable
-        data object AddContact : Config
+        data object AddContact : Config()
 
         @Serializable
-        data class EditContact(val contact: Contact) : Config
+        data class EditContact(val contact: Contact) : Config()
     }
 }
