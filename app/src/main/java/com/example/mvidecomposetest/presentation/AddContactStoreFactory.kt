@@ -11,8 +11,8 @@ class AddContactStoreFactory(
     private val addContactUseCase: AddContactUseCase
 ) {
 
-    private val store: Store<AddContactStore.Intent, AddContactStore.State, AddContactStore.Label> =
-        storeFactory.create(
+    fun create(): AddContactStore = object : AddContactStore,
+        Store<AddContactStore.Intent, AddContactStore.State, AddContactStore.Label> by storeFactory.create(
             name = "AddContactStore",
             initialState = AddContactStore.State(
                 username = "",
@@ -20,7 +20,7 @@ class AddContactStoreFactory(
             ),
             reducer = ReducerImpl,
             executorFactory = ::ExecutorImpl
-        )
+        ) {}
 
     private sealed interface Action
 
