@@ -5,26 +5,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.Children
-import com.example.mvidecomposetest.presentation.DefaultRootComponent
+import com.example.mvidecomposetest.presentation.RootComponent
 import com.example.mvidecomposetest.ui.theme.MviDecomposeTestTheme
 
 @Composable
 fun RootContent(
-    component: DefaultRootComponent
+    component: RootComponent
 ) {
     MviDecomposeTestTheme {
         Box(modifier = Modifier.fillMaxSize()) {
             Children(stack = component.stack) {
                 when (val instance = it.instance) {
-                    is DefaultRootComponent.Child.AddContact -> {
+                    is RootComponent.Child.AddContact -> {
                         AddContact(component = instance.component)
                     }
 
-                    is DefaultRootComponent.Child.ContactList -> {
+                    is RootComponent.Child.ContactList -> {
                         Contacts(component = instance.component)
                     }
 
-                    is DefaultRootComponent.Child.EditContact -> {
+                    is RootComponent.Child.EditContact -> {
                         EditContact(component = instance.component)
                     }
                 }
