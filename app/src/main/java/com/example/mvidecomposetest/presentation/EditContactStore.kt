@@ -18,7 +18,7 @@ interface EditContactStore :
     sealed interface Intent {
 
         data class ChangeUsername(val username: String) : Intent
-        data class ChangePhone(val username: String) : Intent
+        data class ChangePhone(val phone: String) : Intent
         data object SaveContact : Intent
     }
 }
