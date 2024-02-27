@@ -22,7 +22,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mvidecomposetest.domain.Contact
 import com.example.mvidecomposetest.presentation_legacy.ContactDetailViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddContact(
     contact: Contact? = null,
