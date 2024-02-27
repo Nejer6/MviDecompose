@@ -81,4 +81,5 @@ dependencies {
     implementation("com.arkivanov.mvikotlin:mvikotlin:3.3.0")
     implementation("com.arkivanov.mvikotlin:mvikotlin-main:3.3.0")
     implementation("com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:3.3.0")
+    implementation("com.arkivanov.mvikotlin:mvikotlin-logging:3.3.0")
 }
